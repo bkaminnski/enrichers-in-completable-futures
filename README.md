@@ -6,7 +6,7 @@ The topic of the project is to concurrently enrich a single object using data di
 
 We start with an object in some initial state, and in order to move forward with business logic, we need to build the object up. Overall the object is a complex structure, and the data required for further processing is distributed among multiple microservices and external systems.
 
-## Case Study Introduction
+## Case Study
 
 For example, let's consider an insurance company that would like to classify its customers to present them personalized offers. The company segments their customers into risky, regular and premium. There is a rule engine that performs the classification, and our goal is to provide aggregated data aka 360 degrees view of the customer. The data happens to be distributed among different departments of the company, which are reflected in microservices.
 
