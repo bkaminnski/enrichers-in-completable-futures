@@ -12,8 +12,8 @@ For example, let's consider an insurance company that would like to classify its
 
 Each microservice allows getting a distinct aspect of the information related to the customer. In real life project the list could grow significantly. Here, let's focus only on few of the possible areas.
 
-- `Contact data` - keeps track of addresses, phone numbers and e-mails.
-- `Payment history` - keeps track of each insurance premium paid by the customer. It also knows which payments were late or delinquent. 
+- `Contact` - keeps track of addresses, phone numbers and e-mails.
+- `Payments` - keeps track of each insurance premium paid by the customer. It also knows which payments were late or delinquent. 
 - `Claims` - keeps track of the claims made by the customers.
 - `Feedback` - keeps track of the feedback provided by the customers. In this case however we need to dig deeper. Each feedback relates to a particular communication occurrence (when insurence company reached out to the customer), and for each feedback we need to get more details about the communication that feedback relates to. This means that once we get feedback, we need to make another call to `Communication` service which holds complete history of communication with the customer.
 
