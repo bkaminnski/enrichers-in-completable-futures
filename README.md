@@ -1,6 +1,6 @@
 # Enrichers in Completable Futures
 
-## Technical Problem
+## Problem
 
 The topic of the project is to concurrently enrich a single object using data distributed among multiple microservices and external systems. 
 
@@ -17,13 +17,13 @@ Each microservice allows getting a distinct aspect of the information related to
 - `Claims` - keeps track of the claims made by the customers.
 - `Feedback` - keeps track of the feedback provided by the customers. In this case however we need to dig deeper. Each feedback relates to a particular communication occurrence (when insurence company reached out to the customer), and for each feedback we need to get more details about the communication that feedback relates to. This means that once we get feedback, we need to make another call to `Communication` service which holds complete history of communication with the customer.
 
-We need to build the `Classification` service that builds up the customer object which can be next processed by the rule engine.
+We need to create the `Classification` service that builds up the customer object which can be next processed by the rule engine.
 
 ## Solution
 
-From the architecture point view, this problem could be solved using events. Each service could publish an event. `Classification` service could listen to these events and build local representation of the data required for customer classification, effectively replicating relevant data. In this case, techniques discussed in these project could be helpful: [kafka-in-spring](https://github.com/bkaminnski/kafka-in-spring), [kafka-streams-in-spring](https://github.com/bkaminnski/kafka-streams-in-spring).
+From the architecture point view, this problem could be solved using events. Each service could publish an event. `Classification` service could listen to these events and build local representation of the data required for customer classification, effectively replicating relevant data. Techniques discussed in the following project could be helpful in this approach: [kafka-in-spring](https://github.com/bkaminnski/kafka-in-spring), [kafka-streams-in-spring](https://github.com/bkaminnski/kafka-streams-in-spring).
 
-In our case however, the `Classification` service is actively calling all the other services synchronously. And this makes us think of all the consequence such architectural decision brings.
+In our case however, the `Classification` service actively calls all other services synchronously. And this makes us think of all the consequence such architectural decision brings.
 
 - Performance: each network call means latency + processing time on the other side. We have to call services concurrently.
 - Reliability: network calls may time out, services might be unavailable. We have to take this into consideration.
