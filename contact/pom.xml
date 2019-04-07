@@ -10,6 +10,9 @@
 
     <name>Contact Data</name>
     <description>Keeps track of addresses, phone numbers and e-mails</description>
+    <build>
+        <finalName>contact</finalName>
+    </build>
 
     <parent>
         <groupId>com.hclc</groupId>

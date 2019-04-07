@@ -10,6 +10,9 @@
 
     <name>Feedback</name>
     <description>Keeps track of the feedback provided by the customers</description>
+    <build>
+        <finalName>feedback</finalName>
+    </build>
 
     <parent>
         <groupId>com.hclc</groupId>

@@ -10,6 +10,9 @@
 
     <name>Communication</name>
     <description>Holds complete history of communication with the customer</description>
+    <build>
+        <finalName>communication</finalName>
+    </build>
 
     <parent>
         <groupId>com.hclc</groupId>

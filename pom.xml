@@ -28,6 +28,7 @@
         <module>claims</module>
         <module>feedback</module>
         <module>communication</module>
+        <module>classification</module>
     </modules>
 
     <dependencies>

@@ -10,6 +10,9 @@
 
     <name>Classification</name>
     <description>Builds up the customer object and executes classification rule engine</description>
+    <build>
+        <finalName>classification</finalName>
+    </build>
 
     <parent>
         <groupId>com.hclc</groupId>

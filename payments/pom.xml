@@ -10,6 +10,9 @@
 
     <name>Payments</name>
     <description>Keeps track of each insurance premium paid by the customer. It also knows which payments were late or delinquent.</description>
+    <build>
+        <finalName>payments</finalName>
+    </build>
 
     <parent>
         <groupId>com.hclc</groupId>

@@ -10,6 +10,9 @@
 
     <name>Claims</name>
     <description>Keeps track of the claims made by the customers</description>
+    <build>
+        <finalName>claims</finalName>
+    </build>
 
     <parent>
         <groupId>com.hclc</groupId>
