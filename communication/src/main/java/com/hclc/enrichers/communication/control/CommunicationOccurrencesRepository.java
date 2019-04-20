@@ -24,8 +24,8 @@ public class CommunicationOccurrencesRepository {
         communicationOccurrences.add(new CommunicationOccurrence("b5a88c44-644e-4672-a0c5-0efea6f86243", parse("2000-04-07T13:17:57"), "", CommunicationOccurrenceType.EMAIL));
         communicationOccurrencesByCustomerId.put("45e091bf-edbf-4f80-9dd4-90ad50fe131a", communicationOccurrences);
         communicationOccurrences = new LinkedList<>();
-        communicationOccurrences.add(new CommunicationOccurrence("e26fbe50-ed13-48aa-ba2b-84fbf6ab8e9c", parse("2017-11-23T10:12:45"), "", CommunicationOccurrenceType.SMS));
-        communicationOccurrences.add(new CommunicationOccurrence("10c45eae-2a2b-41cd-86e3-22b486ba3490", parse("2017-12-05T09:14:12"), "", CommunicationOccurrenceType.PHONE));
+        communicationOccurrences.add(new CommunicationOccurrence("e26fbe50-ed13-48aa-ba2b-84fbf6ab8e9c", parse("2017-09-17T18:09:51"), "", CommunicationOccurrenceType.SMS));
+        communicationOccurrences.add(new CommunicationOccurrence("10c45eae-2a2b-41cd-86e3-22b486ba3490", parse("2017-11-23T10:12:45"), "", CommunicationOccurrenceType.PHONE));
         communicationOccurrencesByCustomerId.put("ab7a68cb-bcd2-4580-a155-a2bd005f4fde", communicationOccurrences);
     }
 
