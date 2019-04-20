@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Payment {
-    private String policyId;
-    private Date dueDate;
-    private Date paymentDate;
-    private BigDecimal amount;
-    private int daysLate;
+    private final String policyId;
+    private final Date dueDate;
+    private final Date paymentDate;
+    private final BigDecimal amount;
+    private final int daysLate;
 
     public Payment(String policyId, Date dueDate, Date paymentDate, BigDecimal amount, int daysLate) {
         this.policyId = policyId;

@@ -3,10 +3,10 @@ package com.hclc.enrichers.communication.entity;
 import java.util.Date;
 
 public class CommunicationOccurrence {
-    private String id;
-    private Date occurredAt;
-    private String comment;
-    private CommunicationOccurrenceType type;
+    private final String id;
+    private final Date occurredAt;
+    private final String comment;
+    private final CommunicationOccurrenceType type;
 
     public CommunicationOccurrence(String id, Date occurredAt, String comment, CommunicationOccurrenceType type) {
         this.id = id;

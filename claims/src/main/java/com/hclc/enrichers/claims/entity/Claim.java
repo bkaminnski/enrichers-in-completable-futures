@@ -3,10 +3,10 @@ package com.hclc.enrichers.claims.entity;
 import java.util.Date;
 
 public class Claim {
-    private String policyId;
-    private Date requestedAt;
-    private ClaimState state;
-    private String comment;
+    private final String policyId;
+    private final Date requestedAt;
+    private final ClaimState state;
+    private final String comment;
 
     public Claim(String policyId, Date requestedAt, ClaimState state, String comment) {
         this.policyId = policyId;
