@@ -1,4 +1,4 @@
-package com.hclc.enrichers.classification.entity;
+package com.hclc.enrichers.classification.contextassembler.payments;
 
 import lombok.Builder;
 import lombok.Value;

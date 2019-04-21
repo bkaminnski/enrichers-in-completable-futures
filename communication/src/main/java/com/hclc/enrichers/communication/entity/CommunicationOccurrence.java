@@ -1,33 +1,13 @@
 package com.hclc.enrichers.communication.entity;
 
+import lombok.Value;
+
 import java.util.Date;
 
+@Value
 public class CommunicationOccurrence {
-    private final String id;
-    private final Date occurredAt;
-    private final String comment;
-    private final CommunicationOccurrenceType type;
-
-    public CommunicationOccurrence(String id, Date occurredAt, String comment, CommunicationOccurrenceType type) {
-        this.id = id;
-        this.occurredAt = occurredAt;
-        this.comment = comment;
-        this.type = type;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Date getOccurredAt() {
-        return occurredAt;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public CommunicationOccurrenceType getType() {
-        return type;
-    }
+    private String id;
+    private Date occurredAt;
+    private String comment;
+    private CommunicationOccurrenceType type;
 }
