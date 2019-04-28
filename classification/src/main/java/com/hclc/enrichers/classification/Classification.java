@@ -6,7 +6,6 @@ import lombok.Value;
 
 @Value
 public class Classification {
-    private String customerId;
     private Context context;
     private Result result;
 }

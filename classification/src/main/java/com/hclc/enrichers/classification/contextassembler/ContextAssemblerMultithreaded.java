@@ -6,6 +6,7 @@ import com.hclc.enrichers.classification.contextassembler.feedback.FeedbackEnric
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Stream;
@@ -32,10 +33,10 @@ public class ContextAssemblerMultithreaded {
     }
 
     public Context assembleFor(String customerId) {
-        Context context = new Context();
+        Context context = new Context(customerId);
         List<CompletableFuture<Enrichment>> enrichmentFutures = runEnrichers(customerId);
-        waitUntilEnrichersFinishOrTimeOut(enrichmentFutures, customerId);
-        applyEnrichmentsToContext(context, enrichmentFutures, customerId);
+        List<Enrichment> errorsEnrichments = waitUntilEnrichersFinishOrTimeOut(enrichmentFutures, customerId);
+        applyEnrichmentsToContext(context, enrichmentFutures, errorsEnrichments);
         return context;
     }
 
@@ -54,7 +55,8 @@ public class ContextAssemblerMultithreaded {
         return Stream.of(supplyAsync(() -> feedbackEnricher.run(customerId), enrichersThreadPoolExecutor).thenApply(feedbackDependentEnricher::run));
     }
 
-    private void waitUntilEnrichersFinishOrTimeOut(List<CompletableFuture<Enrichment>> futures, String customerId) {
+    private List<Enrichment> waitUntilEnrichersFinishOrTimeOut(List<CompletableFuture<Enrichment>> futures, String customerId) {
+        List<Enrichment> errorsEnrichments = new LinkedList<>();
         CompletableFuture<Void> all = CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
         try {
             all.get(classificationProperties.getAssemblyTimeoutMillis(), MILLISECONDS);
@@ -62,15 +64,19 @@ public class ContextAssemblerMultithreaded {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
             log.warn("One of enrichers finished with exception for customer id {}. Classification context may be incomplete.", customerId, e);
+            errorsEnrichments.add(new ThrowableEnrichment(e));
         } catch (TimeoutException e) {
             log.warn("Waiting for all enrichers to finish timed out for customer id {}. Classification context may be incomplete.", customerId, e);
+            errorsEnrichments.add(new ThrowableEnrichment(e));
         }
+        return errorsEnrichments;
     }
 
-    private void applyEnrichmentsToContext(Context context, List<CompletableFuture<Enrichment>> futures, String customerId) {
+    private void applyEnrichmentsToContext(Context context, List<CompletableFuture<Enrichment>> futures, List<Enrichment> errorsEnrichments) {
         futures.stream()
-                .map(f -> toEnrichment(f, customerId))
+                .map(f -> toEnrichment(f, context.getCustomerId()))
                 .forEach(f -> f.applyTo(context));
+        errorsEnrichments.forEach(f -> f.applyTo(context));
     }
 
     private Enrichment toEnrichment(CompletableFuture<Enrichment> f, String customerId) {
@@ -78,7 +84,7 @@ public class ContextAssemblerMultithreaded {
             return f.getNow(new EnrichmentDoingNothing());
         } catch (CompletionException e) {
             log.warn("One of enrichers finished with exception for customer id {}. Classification context may be incomplete.", customerId, e);
-            return new EnrichmentDoingNothing();
+            return new ThrowableEnrichment(e);
         }
     }
 }

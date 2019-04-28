@@ -21,7 +21,7 @@ public class ContextAssemblerSinglethreaded {
     }
 
     public Context assembleFor(String customerId) {
-        Context context = new Context();
+        Context context = new Context(customerId);
         enrichers.stream()
                 .map(enricher -> enricher.run(customerId))
                 .forEach(enrichment -> enrichment.applyTo(context));

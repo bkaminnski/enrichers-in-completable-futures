@@ -39,6 +39,6 @@ public class ClassificationRestController {
     private ResponseEntity<Classification> getClassification(String customerId, Function<String, Context> assemblingFunction) {
         Context context = assemblingFunction.apply(customerId);
         Result result = classificationRunner.runClassificationFor(context);
-        return ResponseEntity.ok(new Classification(customerId, context, result));
+        return ResponseEntity.ok(new Classification(context, result));
     }
 }
