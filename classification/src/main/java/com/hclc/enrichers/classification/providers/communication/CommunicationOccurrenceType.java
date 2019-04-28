@@ -1,4 +1,4 @@
-package com.hclc.enrichers.communication.entity;
+package com.hclc.enrichers.classification.providers.communication;
 
 public enum CommunicationOccurrenceType {
     PHONE, EMAIL, SMS, LETTER

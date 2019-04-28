@@ -1,10 +1,10 @@
-package com.hclc.enrichers.feedback.entity;
+package com.hclc.enrichers.classification.providers.feedback;
 
-import lombok.Value;
+import lombok.Data;
 
 import java.util.Date;
 
-@Value
+@Data
 public class Feedback {
     private String id;
     private String communicationId;

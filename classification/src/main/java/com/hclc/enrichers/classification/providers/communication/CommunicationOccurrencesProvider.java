@@ -1,4 +1,4 @@
-package com.hclc.enrichers.classification.providers.feedback;
+package com.hclc.enrichers.classification.providers.communication;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
@@ -11,20 +11,20 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 
 @Component
-public class FeedbackProvider {
+public class CommunicationOccurrencesProvider {
     private final RestTemplate restTemplate;
     private final Environment environment;
 
-    public FeedbackProvider(RestTemplate restTemplate, Environment environment) {
+    public CommunicationOccurrencesProvider(RestTemplate restTemplate, Environment environment) {
         this.restTemplate = restTemplate;
         this.environment = environment;
     }
 
-    public List<Feedback> provideFor(String customerId) {
-        String uri = fromUriString(environment.getProperty("feedback.uri"))
+    public List<CommunicationOccurrence> provideFor(String customerId) {
+        String uri = fromUriString(environment.getProperty("communication.uri"))
                 .queryParam("customerId", customerId)
                 .toUriString();
-        ParameterizedTypeReference<List<Feedback>> responseType = new ParameterizedTypeReference<>() {
+        ParameterizedTypeReference<List<CommunicationOccurrence>> responseType = new ParameterizedTypeReference<>() {
         };
         return restTemplate.exchange(uri, GET, null, responseType).getBody();
     }

@@ -5,9 +5,11 @@ import com.hclc.enrichers.classification.contextassembler.feedback.FeedbackSumma
 import com.hclc.enrichers.classification.contextassembler.payments.PaymentsSummary;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Context {
     private ClaimsSummary claims;
     private PaymentsSummary payments;
-    private FeedbackSummary feedback;
+    private List<FeedbackSummary> feedback;
 }

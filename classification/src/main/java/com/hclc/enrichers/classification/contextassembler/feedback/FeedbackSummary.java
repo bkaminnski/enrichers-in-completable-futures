@@ -7,8 +7,8 @@ import lombok.Value;
 @Builder
 public class FeedbackSummary {
     private FeedbackType feedbackType;
-    private int numberOfAllFeedbackRequests;
-    private int numberOfIgnoredFeedbacks;
-    private int numberOfAbortedFeedbacks;
-    private int numberOfFinishedFeedbacks;
+    private long numberOfAllFeedbackRequests;
+    private long numberOfIgnoredFeedbacks;
+    private long numberOfAbortedFeedbacks;
+    private long numberOfFinishedFeedbacks;
 }

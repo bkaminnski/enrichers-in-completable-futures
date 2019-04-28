@@ -1,10 +1,10 @@
-package com.hclc.enrichers.communication.entity;
+package com.hclc.enrichers.classification.providers.communication;
 
-import lombok.Value;
+import lombok.Data;
 
 import java.util.Date;
 
-@Value
+@Data
 public class CommunicationOccurrence {
     private String id;
     private Date occurredAt;
