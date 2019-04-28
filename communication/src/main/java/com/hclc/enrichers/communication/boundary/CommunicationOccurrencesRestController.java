@@ -1,6 +1,6 @@
 package com.hclc.enrichers.communication.boundary;
 
-import com.hclc.enrichers.communication.CommunicationConfig;
+import com.hclc.enrichers.communication.CommunicationProperties;
 import com.hclc.enrichers.communication.control.CommunicationOccurrencesRepository;
 import com.hclc.enrichers.communication.entity.CommunicationOccurrence;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +17,16 @@ import static java.lang.Thread.sleep;
 @RequestMapping("/communicationOccurrences")
 public class CommunicationOccurrencesRestController {
     private final CommunicationOccurrencesRepository communicationOccurrencesRepository;
-    private final CommunicationConfig communicationConfig;
+    private final CommunicationProperties communicationProperties;
 
-    public CommunicationOccurrencesRestController(CommunicationOccurrencesRepository communicationOccurrencesRepository, CommunicationConfig communicationConfig) {
+    public CommunicationOccurrencesRestController(CommunicationOccurrencesRepository communicationOccurrencesRepository, CommunicationProperties communicationProperties) {
         this.communicationOccurrencesRepository = communicationOccurrencesRepository;
-        this.communicationConfig = communicationConfig;
+        this.communicationProperties = communicationProperties;
     }
 
     @GetMapping
     ResponseEntity<List<CommunicationOccurrence>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
-        sleep(communicationConfig.getSimulatedProcessingTimeMillis());
+        sleep(communicationProperties.getSimulatedProcessingTimeMillis());
         return ResponseEntity.ok(communicationOccurrencesRepository.findByCustomerId(customerId));
     }
 }

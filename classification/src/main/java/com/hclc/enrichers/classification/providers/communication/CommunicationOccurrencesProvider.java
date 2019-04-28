@@ -1,7 +1,7 @@
 package com.hclc.enrichers.classification.providers.communication;
 
+import com.hclc.enrichers.classification.ClassificationProperties;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,15 +13,15 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 @Component
 public class CommunicationOccurrencesProvider {
     private final RestTemplate restTemplate;
-    private final Environment environment;
+    private final ClassificationProperties classificationProperties;
 
-    public CommunicationOccurrencesProvider(RestTemplate restTemplate, Environment environment) {
+    public CommunicationOccurrencesProvider(RestTemplate restTemplate, ClassificationProperties classificationProperties) {
         this.restTemplate = restTemplate;
-        this.environment = environment;
+        this.classificationProperties = classificationProperties;
     }
 
     public List<CommunicationOccurrence> provideFor(String customerId) {
-        String uri = fromUriString(environment.getProperty("communication.uri"))
+        String uri = fromUriString(classificationProperties.getCommunicationUri())
                 .queryParam("customerId", customerId)
                 .toUriString();
         ParameterizedTypeReference<List<CommunicationOccurrence>> responseType = new ParameterizedTypeReference<>() {

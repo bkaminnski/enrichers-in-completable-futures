@@ -1,7 +1,7 @@
 package com.hclc.enrichers.classification.providers.claims;
 
+import com.hclc.enrichers.classification.ClassificationProperties;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,15 +13,15 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 @Component
 public class ClaimsProvider {
     private final RestTemplate restTemplate;
-    private final Environment environment;
+    private final ClassificationProperties classificationProperties;
 
-    public ClaimsProvider(RestTemplate restTemplate, Environment environment) {
+    public ClaimsProvider(RestTemplate restTemplate, ClassificationProperties classificationProperties) {
         this.restTemplate = restTemplate;
-        this.environment = environment;
+        this.classificationProperties = classificationProperties;
     }
 
     public List<Claim> provideFor(String customerId) {
-        String uri = fromUriString(environment.getProperty("claims.uri"))
+        String uri = fromUriString(classificationProperties.getClaimsUri())
                 .queryParam("customerId", customerId)
                 .toUriString();
         ParameterizedTypeReference<List<Claim>> responseType = new ParameterizedTypeReference<>() {

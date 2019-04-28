@@ -1,4 +1,4 @@
-package com.hclc.enrichers.payments;
+package com.hclc.enrichers.claims;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "config")
-public class PaymentsConfig {
+@ConfigurationProperties(prefix = "claims")
+public class ClaimsProperties {
     private long simulatedProcessingTimeMillis;
 }

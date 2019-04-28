@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "config")
-public class CommunicationConfig {
+@ConfigurationProperties(prefix = "communication")
+public class CommunicationProperties {
     private long simulatedProcessingTimeMillis;
 }

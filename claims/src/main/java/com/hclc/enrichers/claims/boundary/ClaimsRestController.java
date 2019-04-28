@@ -1,6 +1,6 @@
 package com.hclc.enrichers.claims.boundary;
 
-import com.hclc.enrichers.claims.ClaimsConfig;
+import com.hclc.enrichers.claims.ClaimsProperties;
 import com.hclc.enrichers.claims.control.ClaimsRepository;
 import com.hclc.enrichers.claims.entity.Claim;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +17,16 @@ import static java.lang.Thread.sleep;
 @RequestMapping("/claims")
 public class ClaimsRestController {
     private final ClaimsRepository claimsRepository;
-    private final ClaimsConfig claimsConfig;
+    private final ClaimsProperties claimsProperties;
 
-    public ClaimsRestController(ClaimsRepository claimsRepository, ClaimsConfig claimsConfig) {
+    public ClaimsRestController(ClaimsRepository claimsRepository, ClaimsProperties claimsProperties) {
         this.claimsRepository = claimsRepository;
-        this.claimsConfig = claimsConfig;
+        this.claimsProperties = claimsProperties;
     }
 
     @GetMapping
     ResponseEntity<List<Claim>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
-        sleep(claimsConfig.getSimulatedProcessingTimeMillis());
+        sleep(claimsProperties.getSimulatedProcessingTimeMillis());
         return ResponseEntity.ok(claimsRepository.findByCustomerId(customerId));
     }
 }

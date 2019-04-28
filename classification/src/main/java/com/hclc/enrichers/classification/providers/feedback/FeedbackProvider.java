@@ -1,7 +1,7 @@
 package com.hclc.enrichers.classification.providers.feedback;
 
+import com.hclc.enrichers.classification.ClassificationProperties;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,15 +13,15 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 @Component
 public class FeedbackProvider {
     private final RestTemplate restTemplate;
-    private final Environment environment;
+    private final ClassificationProperties classificationProperties;
 
-    public FeedbackProvider(RestTemplate restTemplate, Environment environment) {
+    public FeedbackProvider(RestTemplate restTemplate, ClassificationProperties classificationProperties) {
         this.restTemplate = restTemplate;
-        this.environment = environment;
+        this.classificationProperties = classificationProperties;
     }
 
     public List<Feedback> provideFor(String customerId) {
-        String uri = fromUriString(environment.getProperty("feedback.uri"))
+        String uri = fromUriString(classificationProperties.getFeedbackUri())
                 .queryParam("customerId", customerId)
                 .toUriString();
         ParameterizedTypeReference<List<Feedback>> responseType = new ParameterizedTypeReference<>() {

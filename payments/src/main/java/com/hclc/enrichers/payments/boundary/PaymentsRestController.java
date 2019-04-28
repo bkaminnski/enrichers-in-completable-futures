@@ -1,6 +1,6 @@
 package com.hclc.enrichers.payments.boundary;
 
-import com.hclc.enrichers.payments.PaymentsConfig;
+import com.hclc.enrichers.payments.PaymentsProperties;
 import com.hclc.enrichers.payments.control.PaymentsRepository;
 import com.hclc.enrichers.payments.entity.Payment;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +17,16 @@ import static java.lang.Thread.sleep;
 @RequestMapping("/payments")
 public class PaymentsRestController {
     private final PaymentsRepository paymentsRepository;
-    private final PaymentsConfig paymentsConfig;
+    private final PaymentsProperties paymentsProperties;
 
-    public PaymentsRestController(PaymentsRepository paymentsRepository, PaymentsConfig paymentsConfig) {
+    public PaymentsRestController(PaymentsRepository paymentsRepository, PaymentsProperties paymentsProperties) {
         this.paymentsRepository = paymentsRepository;
-        this.paymentsConfig = paymentsConfig;
+        this.paymentsProperties = paymentsProperties;
     }
 
     @GetMapping
     ResponseEntity<List<Payment>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
-        sleep(paymentsConfig.getSimulatedProcessingTimeMillis());
+        sleep(paymentsProperties.getSimulatedProcessingTimeMillis());
         return ResponseEntity.ok(paymentsRepository.findByCustomerId(customerId));
     }
 }

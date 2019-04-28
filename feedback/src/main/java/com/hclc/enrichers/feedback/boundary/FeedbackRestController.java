@@ -1,6 +1,6 @@
 package com.hclc.enrichers.feedback.boundary;
 
-import com.hclc.enrichers.feedback.FeedbackConfig;
+import com.hclc.enrichers.feedback.FeedbackProperties;
 import com.hclc.enrichers.feedback.control.FeedbackRepository;
 import com.hclc.enrichers.feedback.entity.Feedback;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +17,16 @@ import static java.lang.Thread.sleep;
 @RequestMapping("/feedback")
 public class FeedbackRestController {
     private final FeedbackRepository feedbackRepository;
-    private final FeedbackConfig feedbackConfig;
+    private final FeedbackProperties feedbackProperties;
 
-    public FeedbackRestController(FeedbackRepository feedbackRepository, FeedbackConfig feedbackConfig) {
+    public FeedbackRestController(FeedbackRepository feedbackRepository, FeedbackProperties feedbackProperties) {
         this.feedbackRepository = feedbackRepository;
-        this.feedbackConfig = feedbackConfig;
+        this.feedbackProperties = feedbackProperties;
     }
 
     @GetMapping
     ResponseEntity<List<Feedback>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
-        sleep(feedbackConfig.getSimulatedProcessingTimeMillis());
+        sleep(feedbackProperties.getSimulatedProcessingTimeMillis());
         return ResponseEntity.ok(feedbackRepository.findByCustomerId(customerId));
     }
 }
