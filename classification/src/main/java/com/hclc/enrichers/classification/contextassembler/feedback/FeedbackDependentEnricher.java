@@ -2,11 +2,13 @@ package com.hclc.enrichers.classification.contextassembler.feedback;
 
 import com.hclc.enrichers.classification.contextassembler.Enrichment;
 import com.hclc.enrichers.classification.contextassembler.ThrowableEnrichment;
+import com.hclc.enrichers.classification.providers.communication.CommunicationOccurrence;
 import com.hclc.enrichers.classification.providers.communication.CommunicationOccurrencesProvider;
 import io.vavr.control.Either;
-import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -22,9 +24,12 @@ public class FeedbackDependentEnricher {
     }
 
     private Enrichment findCommunications(FeedbackEnrichment feedbackEnrichment) {
-        return Try
-                .of(() -> communicationOccurrencesProvider.provideFor(feedbackEnrichment.getCustomerId()))
-                .onFailure(t -> log.warn("Exception occurred in feedback enricher 2/2 for customer id {}.", feedbackEnrichment.getCustomerId(), t))
-                .fold(ThrowableEnrichment::new, communicationOccurrences -> new FeedbackDependentEnrichment(feedbackEnrichment.getFeedbacks(), communicationOccurrences));
+        try {
+            List<CommunicationOccurrence> communicationOccurrences = communicationOccurrencesProvider.provideFor(feedbackEnrichment.getCustomerId());
+            return new FeedbackDependentEnrichment(feedbackEnrichment.getFeedbacks(), communicationOccurrences);
+        } catch (RuntimeException e) {
+            log.warn("Exception occurred in feedback enricher 2/2 for customer id {}.", feedbackEnrichment.getCustomerId(), e);
+            return new ThrowableEnrichment(e);
+        }
     }
 }

@@ -20,6 +20,6 @@ public class FeedbackEnricher {
                 .of(() -> feedbackProvider.provideFor(customerId))
                 .map(f -> new FeedbackEnrichment(f, customerId))
                 .onFailure(e -> log.warn("Exception occurred in feedback enricher 1/2 for customer id {}.", customerId, e))
-                .toEither(e -> e);
+                .toEither();
     }
 }
