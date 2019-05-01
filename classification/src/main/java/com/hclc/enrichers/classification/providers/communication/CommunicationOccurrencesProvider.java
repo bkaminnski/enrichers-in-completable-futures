@@ -1,6 +1,6 @@
 package com.hclc.enrichers.classification.providers.communication;
 
-import com.hclc.enrichers.classification.ClassificationProperties;
+import com.hclc.enrichers.classification.config.ClassificationProperties;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 
 @Component
 public class CommunicationOccurrencesProvider {
@@ -21,11 +20,8 @@ public class CommunicationOccurrencesProvider {
     }
 
     public List<CommunicationOccurrence> provideFor(String customerId) {
-        String uri = fromUriString(classificationProperties.getCommunicationUri())
-                .queryParam("customerId", customerId)
-                .toUriString();
         ParameterizedTypeReference<List<CommunicationOccurrence>> responseType = new ParameterizedTypeReference<>() {
         };
-        return restTemplate.exchange(uri, GET, null, responseType).getBody();
+        return restTemplate.exchange(classificationProperties.getCommunicationUri(), GET, null, responseType, customerId).getBody();
     }
 }

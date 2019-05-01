@@ -1,4 +1,4 @@
-package com.hclc.enrichers.classification;
+package com.hclc.enrichers.classification.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

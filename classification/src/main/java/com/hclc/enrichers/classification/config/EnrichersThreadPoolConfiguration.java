@@ -1,4 +1,4 @@
-package com.hclc.enrichers.classification;
+package com.hclc.enrichers.classification.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

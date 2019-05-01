@@ -1,6 +1,6 @@
 package com.hclc.enrichers.classification.contextassembler;
 
-import com.hclc.enrichers.classification.ClassificationProperties;
+import com.hclc.enrichers.classification.config.ClassificationProperties;
 import com.hclc.enrichers.classification.contextassembler.feedback.FeedbackDependentEnricher;
 import com.hclc.enrichers.classification.contextassembler.feedback.FeedbackEnricher;
 import lombok.extern.slf4j.Slf4j;
