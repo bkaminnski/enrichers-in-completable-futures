@@ -22,14 +22,14 @@ public class ContextAssemblerMultithreaded {
     private final FeedbackEnricher feedbackEnricher;
     private final FeedbackDependentEnricher feedbackDependentEnricher;
     private final ClassificationProperties classificationProperties;
-    private final Executor enrichersThreadPoolExecutor;
+    private final Executor enrichersExecutor;
 
-    public ContextAssemblerMultithreaded(List<Enricher> enrichers, FeedbackEnricher feedbackEnricher, FeedbackDependentEnricher feedbackDependentEnricher, ClassificationProperties classificationProperties, Executor enrichersThreadPoolExecutor) {
+    public ContextAssemblerMultithreaded(List<Enricher> enrichers, FeedbackEnricher feedbackEnricher, FeedbackDependentEnricher feedbackDependentEnricher, ClassificationProperties classificationProperties, Executor enrichersExecutor) {
         this.enrichers = enrichers;
         this.feedbackEnricher = feedbackEnricher;
         this.feedbackDependentEnricher = feedbackDependentEnricher;
         this.classificationProperties = classificationProperties;
-        this.enrichersThreadPoolExecutor = enrichersThreadPoolExecutor;
+        this.enrichersExecutor = enrichersExecutor;
     }
 
     public Context assembleFor(String customerId) {
@@ -48,11 +48,11 @@ public class ContextAssemblerMultithreaded {
     }
 
     private Stream<CompletableFuture<Enrichment>> runOneStepEnrichers(String customerId) {
-        return enrichers.stream().map(e -> supplyAsync(() -> e.run(customerId), enrichersThreadPoolExecutor));
+        return enrichers.stream().map(e -> supplyAsync(() -> e.run(customerId), enrichersExecutor));
     }
 
     private Stream<CompletableFuture<Enrichment>> runTwoStepsEnrichers(String customerId) {
-        return Stream.of(supplyAsync(() -> feedbackEnricher.run(customerId), enrichersThreadPoolExecutor).thenApply(feedbackDependentEnricher::run));
+        return Stream.of(supplyAsync(() -> feedbackEnricher.run(customerId), enrichersExecutor).thenApply(feedbackDependentEnricher::run));
     }
 
     private List<Enrichment> waitUntilEnrichersFinishOrTimeOut(List<CompletableFuture<Enrichment>> futures, String customerId) {

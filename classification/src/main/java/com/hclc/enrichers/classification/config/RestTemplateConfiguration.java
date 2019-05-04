@@ -12,7 +12,7 @@ public class RestTemplateConfiguration {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder, MetricsRestTemplateCustomizer metricsRestTemplateCustomizer) {
         return restTemplateBuilder
-                .customizers(metricsRestTemplateCustomizer)
+                .additionalCustomizers(metricsRestTemplateCustomizer)
                 .build();
     }
 }

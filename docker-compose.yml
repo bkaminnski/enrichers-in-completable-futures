@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+
+  classification:
+    build: ./classification
+    container_name: classification
+    image: classification
+    environment:
+      - APPLICATION_PORT=8001
+      - JMX_PORT=18001
+      - DEBUG_PORT=28001
+      - MEMORY_OPTS=-Xmx64m
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8001:8001"
+      - "18001:18001"
+      - "28001:28001"
+
+  claims:
+    build: ./claims
+    container_name: claims
+    image: claims
+    environment:
+      - APPLICATION_PORT=8002
+      - JMX_PORT=18002
+      - DEBUG_PORT=28002
+      - MEMORY_OPTS=-Xmx64m
+    ports:
+      - "8002:8002"
+      - "18002:18002"
+      - "28002:28002"
+
+  communication:
+    build: ./communication
+    container_name: communication
+    image: communication
+    environment:
+      - APPLICATION_PORT=8003
+      - JMX_PORT=18003
+      - DEBUG_PORT=28003
+      - MEMORY_OPTS=-Xmx64m
+    ports:
+      - "8003:8003"
+      - "18003:18003"
+      - "28003:28003"
+
+  feedback:
+    build: ./feedback
+    container_name: feedback
+    image: feedback
+    environment:
+      - APPLICATION_PORT=8004
+      - JMX_PORT=18004
+      - DEBUG_PORT=28004
+      - MEMORY_OPTS=-Xmx64m
+    ports:
+      - "8004:8004"
+      - "18004:18004"
+      - "28004:28004"
+
+  payments:
+    build: ./payments
+    container_name: payments
+    image: payments
+    environment:
+      - APPLICATION_PORT=8005
+      - JMX_PORT=18005
+      - DEBUG_PORT=28005
+      - MEMORY_OPTS=-Xmx64m
+    ports:
+      - "8005:8005"
+      - "18005:18005"
+      - "28005:28005"

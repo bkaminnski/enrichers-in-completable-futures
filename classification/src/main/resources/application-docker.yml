@@ -1,0 +1,5 @@
+classification:
+    claimsUri: http://claims:8002/claims?customerId={customerId}
+    communicationUri: http://communication:8003/communicationOccurrences?customerId={customerId}
+    feedbackUri: http://feedback:8004/feedback?customerId={customerId}
+    paymentsUri: http://payments:8005/payments?customerId={customerId}
