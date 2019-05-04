@@ -72,3 +72,10 @@ services:
       - "8005:8005"
       - "18005:18005"
       - "28005:28005"
+
+  prometheus:
+    build: ./prometheus
+    container_name: prometheus
+    image: prometheus
+    ports:
+      - "9090:9090"
