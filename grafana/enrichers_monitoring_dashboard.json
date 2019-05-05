@@ -14,7 +14,7 @@
   },
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 0,
+  "graphTooltip": 2,
   "id": 1,
   "links": [],
   "panels": [
@@ -70,15 +70,34 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_client_requests_seconds_sum[5m]) / rate(http_client_requests_seconds_count[5m])) by (clientName)",
+          "expr": "sum(rate(http_client_requests_seconds_sum{status=~\"2..\"}[5m])) by (clientName) / sum(rate(http_client_requests_seconds_count{status=~\"2..\"}[5m])) by (clientName)",
           "format": "time_series",
+          "hide": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{clientName}}",
+          "legendFormat": "2XX OK: {{clientName}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum(rate(http_client_requests_seconds_sum{status!~\"2..\"}[5m])) by (clientName) / sum(rate(http_client_requests_seconds_count{status!~\"2..\"}[5m])) by (clientName)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "ERROR: {{clientName}}",
+          "refId": "B"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 3,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -100,7 +119,7 @@
         {
           "format": "s",
           "label": null,
-          "logBase": 1,
+          "logBase": 2,
           "max": null,
           "min": null,
           "show": true
@@ -283,7 +302,7 @@
       },
       "yaxes": [
         {
-          "format": "reqps",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -305,7 +324,7 @@
       }
     }
   ],
-  "refresh": "5s",
+  "refresh": false,
   "schemaVersion": 18,
   "style": "dark",
   "tags": [],
@@ -313,11 +332,13 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2019-05-05T18:51:32.435Z",
+    "to": "2019-05-05T19:21:32.435Z"
   },
   "timepicker": {
+    "hidden": false,
     "refresh_intervals": [
+      "1s",
       "5s",
       "10s",
       "30s",
