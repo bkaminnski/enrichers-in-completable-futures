@@ -119,102 +119,6 @@
         {
           "format": "s",
           "label": null,
-          "logBase": 2,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "ERROR": "dark-red"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 7,
-        "y": 1
-      },
-      "id": 4,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(http_client_requests_seconds_count{status=~\"2..\"}[5m]))",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "2XX OK",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(http_client_requests_seconds_count{status!~\"2..\"}[5m]))",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 1,
-          "legendFormat": "ERROR",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "HTTP requests rate",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "reqps",
-          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -246,7 +150,7 @@
       "gridPos": {
         "h": 8,
         "w": 10,
-        "x": 14,
+        "x": 7,
         "y": 1
       },
       "id": 5,
@@ -322,9 +226,106 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {
+        "ERROR": "dark-red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 17,
+        "y": 1
+      },
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(http_client_requests_seconds_count{status=~\"2..\"}[5m]))",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "2XX OK",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(http_client_requests_seconds_count{status!~\"2..\"}[5m]))",
+          "format": "time_series",
+          "hide": true,
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "ERROR",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "HTTP requests rate over 5 minutes",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "reqps",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
-  "refresh": false,
+  "refresh": "1s",
   "schemaVersion": 18,
   "style": "dark",
   "tags": [],
@@ -332,8 +333,8 @@
     "list": []
   },
   "time": {
-    "from": "2019-05-05T18:51:32.435Z",
-    "to": "2019-05-05T19:21:32.435Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "hidden": false,
