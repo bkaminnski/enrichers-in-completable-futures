@@ -73,17 +73,17 @@ services:
       - "18005:18005"
       - "28005:28005"
 
-  prometheus-configured:
+  prometheus:
     build: ./prometheus
-    container_name: prometheus-configured
-    image: prometheus-configured
+    container_name: prometheus
+    image: prometheus
     ports:
       - "9090:9090"
 
-  grafana-configured:
+  grafana:
     build: ./grafana
-    container_name: grafana-configured
-    image: grafana-configured
+    container_name: grafana
+    image: grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
     ports:
