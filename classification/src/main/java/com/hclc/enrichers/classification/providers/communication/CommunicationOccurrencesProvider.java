@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Set;
 
+import static java.lang.String.join;
 import static org.springframework.http.HttpMethod.GET;
 
 @Component
@@ -19,9 +21,9 @@ public class CommunicationOccurrencesProvider {
         this.classificationProperties = classificationProperties;
     }
 
-    public List<CommunicationOccurrence> provideFor(String customerId) {
+    public List<CommunicationOccurrence> provideFor(Set<String> ids) {
         ParameterizedTypeReference<List<CommunicationOccurrence>> responseType = new ParameterizedTypeReference<>() {
         };
-        return restTemplate.exchange(classificationProperties.getCommunicationUri(), GET, null, responseType, customerId).getBody();
+        return restTemplate.exchange(classificationProperties.getCommunicationUri(), GET, null, responseType, join(",", ids)).getBody();
     }
 }

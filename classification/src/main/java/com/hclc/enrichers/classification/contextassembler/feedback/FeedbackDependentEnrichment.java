@@ -7,6 +7,7 @@ import com.hclc.enrichers.classification.providers.communication.CommunicationOc
 import com.hclc.enrichers.classification.providers.feedback.Feedback;
 import com.hclc.enrichers.classification.providers.feedback.FeedbackStatus;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -23,7 +24,7 @@ public class FeedbackDependentEnrichment implements Enrichment {
     private final List<FeedbackSummary> feedbackSummaries;
 
     FeedbackDependentEnrichment(List<Feedback> feedbacks, List<CommunicationOccurrence> communicationOccurrences) {
-        Map<String, CommunicationOccurrence> communicationById = communicationOccurrences.stream().collect(toMap(CommunicationOccurrence::getId, c -> c));
+        Map<String, CommunicationOccurrence> communicationById = communicationOccurrences.stream().collect(toMap(CommunicationOccurrence::getId, c -> c, (l, r) -> r));
         Map<FeedbackStatus, Long> generalByStatus = feedbacks.stream()
                 .filter(generalFeedback())
                 .collect(countingByFeedbackStatus());
@@ -32,8 +33,8 @@ public class FeedbackDependentEnrichment implements Enrichment {
                 .collect(groupingByCommunicationTypeCountingByFeedbackStatus(communicationById));
         feedbackSummaries = Stream.of(
                 buildFeedbackSummary(GENERAL, generalByStatus),
-                buildFeedbackSummary(REGARDING_EMAIL_COMMUNICATION, byCommunicationTypeByStatus.get(EMAIL)),
-                buildFeedbackSummary(REGARDING_PHONE_COMMUNICATION, byCommunicationTypeByStatus.get(PHONE))
+                buildFeedbackSummary(REGARDING_EMAIL_COMMUNICATION, byCommunicationTypeByStatus.getOrDefault(EMAIL, new HashMap<>())),
+                buildFeedbackSummary(REGARDING_PHONE_COMMUNICATION, byCommunicationTypeByStatus.getOrDefault(PHONE, new HashMap<>()))
         ).collect(toList());
     }
 

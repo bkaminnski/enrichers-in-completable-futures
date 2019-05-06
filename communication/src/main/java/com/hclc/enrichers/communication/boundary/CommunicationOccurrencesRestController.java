@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.Thread.sleep;
 
@@ -25,8 +26,8 @@ public class CommunicationOccurrencesRestController {
     }
 
     @GetMapping
-    ResponseEntity<List<CommunicationOccurrence>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
+    ResponseEntity<List<CommunicationOccurrence>> findBy(@RequestParam("ids") Set<String> ids) throws InterruptedException {
         sleep(communicationProperties.getSimulatedProcessingTimeMillis());
-        return ResponseEntity.ok(communicationOccurrencesRepository.findByCustomerId(customerId));
+        return ResponseEntity.ok(communicationOccurrencesRepository.findByIds(ids));
     }
 }

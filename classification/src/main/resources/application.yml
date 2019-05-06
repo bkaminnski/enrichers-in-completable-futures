@@ -8,7 +8,7 @@ spring:
 classification:
     assemblyTimeoutMillis: 20000
     claimsUri: http://localhost:8002/claims?customerId={customerId}
-    communicationUri: http://localhost:8003/communicationOccurrences?customerId={customerId}
+    communicationUri: http://localhost:8003/communicationOccurrences?ids={ids}
     enrichersThreadPoolCorePoolSize: 16
     enrichersThreadPoolMaxPoolSize: 32
     feedbackUri: http://localhost:8004/feedback?customerId={customerId}
@@ -28,3 +28,11 @@ management:
         export:
             prometheus:
                 enabled: true
+
+logging:
+    level:
+        org:
+            springframework:
+                web:
+                    client:
+                        RestTemplate: DEBUG
