@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Thread.sleep;
 
@@ -27,7 +28,7 @@ public class CommunicationOccurrencesRestController {
 
     @GetMapping
     ResponseEntity<List<CommunicationOccurrence>> findBy(@RequestParam("ids") Set<String> ids) throws InterruptedException {
-        sleep(communicationProperties.getSimulatedProcessingTimeMillis());
+        sleep((long) (communicationProperties.getSimulatedProcessingTimeMillis() * ThreadLocalRandom.current().nextDouble()));
         return ResponseEntity.ok(communicationOccurrencesRepository.findByIds(ids));
     }
 }

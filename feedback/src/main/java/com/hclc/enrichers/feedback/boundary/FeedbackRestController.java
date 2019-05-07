@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Thread.sleep;
 
@@ -26,7 +27,7 @@ public class FeedbackRestController {
 
     @GetMapping
     ResponseEntity<List<Feedback>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
-        sleep(feedbackProperties.getSimulatedProcessingTimeMillis());
+        sleep((long) (feedbackProperties.getSimulatedProcessingTimeMillis() * ThreadLocalRandom.current().nextDouble()));
         return ResponseEntity.ok(feedbackRepository.findByCustomerId(customerId));
     }
 }

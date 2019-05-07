@@ -12,6 +12,7 @@ services:
       - DEBUG_PORT=28001
       - MEMORY_OPTS=-Xmx64m
       - SPRING_PROFILES_ACTIVE=docker
+      - PAYMENTS_SIMULATEDPROCESSINGTIMEMILLIS=1000
     ports:
       - "8001:8001"
       - "18001:18001"
@@ -26,6 +27,7 @@ services:
       - JMX_PORT=18002
       - DEBUG_PORT=28002
       - MEMORY_OPTS=-Xmx64m
+      - PAYMENTS_SIMULATEDPROCESSINGTIMEMILLIS=1000
     ports:
       - "8002:8002"
       - "18002:18002"
@@ -40,6 +42,7 @@ services:
       - JMX_PORT=18003
       - DEBUG_PORT=28003
       - MEMORY_OPTS=-Xmx64m
+      - PAYMENTS_SIMULATEDPROCESSINGTIMEMILLIS=1000
     ports:
       - "8003:8003"
       - "18003:18003"
@@ -54,6 +57,7 @@ services:
       - JMX_PORT=18004
       - DEBUG_PORT=28004
       - MEMORY_OPTS=-Xmx64m
+      - PAYMENTS_SIMULATEDPROCESSINGTIMEMILLIS=1000
     ports:
       - "8004:8004"
       - "18004:18004"
@@ -68,6 +72,7 @@ services:
       - JMX_PORT=18005
       - DEBUG_PORT=28005
       - MEMORY_OPTS=-Xmx64m
+      - PAYMENTS_SIMULATEDPROCESSINGTIMEMILLIS=1000
     ports:
       - "8005:8005"
       - "18005:18005"
