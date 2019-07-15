@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,7 +27,7 @@ public class ClaimsRestController {
     }
 
     @GetMapping
-    ResponseEntity<List<Claim>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
+    ResponseEntity<List<Claim>> findBy(@RequestParam("customerId") String customerId, HttpServletRequest r) throws InterruptedException {
         sleep((long) (claimsProperties.getSimulatedProcessingTimeMillis() * ThreadLocalRandom.current().nextDouble()));
         return ResponseEntity.ok(claimsRepository.findByCustomerId(customerId));
     }

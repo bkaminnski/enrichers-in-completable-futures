@@ -3,7 +3,12 @@ version: '3'
 services:
 
   classification:
-    build: ./classification
+    build:
+      context: ./classification
+      args:
+        APPLICATION_PORT: 8001
+        JMX_PORT: 18001
+        DEBUG_PORT: 28001
     container_name: classification
     image: classification
     environment:
@@ -16,9 +21,33 @@ services:
       - "8001:8001"
       - "18001:18001"
       - "28001:28001"
+  classification-reactive:
+    build:
+      context: ./classification-reactive
+      args:
+        APPLICATION_PORT: 8010
+        JMX_PORT: 18010
+        DEBUG_PORT: 28010
+    container_name: classificationreactive
+    image: classificationreactive
+    environment:
+      - APPLICATION_PORT=8010
+      - JMX_PORT=18001
+      - DEBUG_PORT=28001
+      - MEMORY_OPTS=-Xmx64m
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8010:8010"
+      - "18010:18010"
+      - "28010:28010"
 
   claims:
-    build: ./claims
+    build:
+      context: ./claims
+      args:
+        APPLICATION_PORT: 8002
+        JMX_PORT: 18002
+        DEBUG_PORT: 28002
     container_name: claims
     image: claims
     environment:
@@ -33,7 +62,12 @@ services:
       - "28002:28002"
 
   communication:
-    build: ./communication
+    build:
+      context: ./communication
+      args:
+        APPLICATION_PORT: 8003
+        JMX_PORT: 18003
+        DEBUG_PORT: 28003
     container_name: communication
     image: communication
     environment:
@@ -48,7 +82,12 @@ services:
       - "28003:28003"
 
   feedback:
-    build: ./feedback
+    build:
+      context: ./feedback
+      args:
+        APPLICATION_PORT: 8004
+        JMX_PORT: 18004
+        DEBUG_PORT: 28004
     container_name: feedback
     image: feedback
     environment:
@@ -63,7 +102,12 @@ services:
       - "28004:28004"
 
   payments:
-    build: ./payments
+    build:
+      context: ./payments
+      args:
+        APPLICATION_PORT: 8005
+        JMX_PORT: 18005
+        DEBUG_PORT: 28005
     container_name: payments
     image: payments
     environment:

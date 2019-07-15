@@ -28,6 +28,7 @@
         <module>feedback</module>
         <module>communication</module>
         <module>classification</module>
+        <module>classification-reactive</module>
     </modules>
 
     <dependencies>

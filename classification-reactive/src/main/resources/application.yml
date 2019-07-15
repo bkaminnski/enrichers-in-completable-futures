@@ -1,0 +1,38 @@
+server:
+    port: 8010
+
+spring:
+    application:
+        name: classificationreactive
+
+classification:
+    assemblyTimeoutMillis: 20000
+    claimsUri: http://localhost:8002/claims?customerId={customerId}
+    communicationUri: http://localhost:8003/communicationOccurrences?ids={ids}
+    enrichersThreadPoolCorePoolSize: 16
+    enrichersThreadPoolMaxPoolSize: 32
+    feedbackUri: http://localhost:8004/feedback?customerId={customerId}
+    paymentsUri: http://localhost:8005/payments?customerId={customerId}
+
+management:
+    endpoint:
+        metrics:
+            enabled: true
+        prometheus:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    metrics:
+        export:
+            prometheus:
+                enabled: true
+
+logging:
+    level:
+        org:
+            springframework:
+                web:
+                    client:
+                        RestTemplate: DEBUG

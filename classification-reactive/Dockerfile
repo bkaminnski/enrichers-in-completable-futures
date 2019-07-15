@@ -4,5 +4,5 @@ ARG APPLICATION_PORT
 ARG JMX_PORT
 ARG DEBUG_PORT
 
-ADD ./target/classification.jar app.jar
+ADD ./target/classification-reactive.jar app.jar
 EXPOSE $APPLICATION_PORT $JMX_PORT $DEBUG_PORT

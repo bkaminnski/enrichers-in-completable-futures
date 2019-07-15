@@ -88,6 +88,7 @@ To run the project:
 4. endpoints:
     - single threaded assembly: http://localhost:8001/classification/singlethreaded?customerId=45e091bf-edbf-4f80-9dd4-90ad50fe131a,
     - multithreaded assembly: http://localhost:8001/classification/multithreaded?customerId=45e091bf-edbf-4f80-9dd4-90ad50fe131a,
+    - reactive: http://localhost:8010/classification/reactive-singlethreaded?customerId=45e091bf-edbf-4f80-9dd4-90ad50fe131a
     - metrics: http://localhost:8001/actuator/prometheus,
     - grafana: http://localhost:3000.
   
