@@ -9,12 +9,10 @@ import com.hclc.enrichers.classificationreactive.providers.payments.PaymentsProv
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-import reactor.util.function.Tuple2;
+import reactor.core.publisher.Signal;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.function.Consumer;
+import java.util.LinkedList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -31,11 +29,27 @@ public class ContextAssemblerReactiveSinglethreaded {
         log.info("Assembling in reactive way in thread {}", Thread.currentThread().getId());
 
         return Mono.zip(
-                claims(customerId),
-                payments(customerId)
+                claims(customerId).materialize(),
+                payments(customerId).materialize()
         )
                 .doOnNext(objects -> log.info("Merging in {}", Thread.currentThread().getId()))
-                .map(objects -> new Context(customerId, objects.getT1(), objects.getT2()));
+                .map(signals -> new Context(
+                        customerId,
+                        signals.getT1().get(),
+                        signals.getT2().get(),
+                        collectErrors(signals.getT1(), signals.getT2())));
+    }
+
+    private static List<AssemblyError> collectErrors(Signal<?>... claimsSignals) {
+        List<AssemblyError> errors = new LinkedList<>();
+        for (Signal<?> signal : claimsSignals) {
+            if (signal.hasError()) {
+                errors.add(new AssemblyError(Thread.currentThread().getName(),
+                        signal.getThrowable().getMessage()));
+            }
+        }
+
+        return errors;
     }
 
     private Mono<ClaimsSummary> claims(String customerId) {
