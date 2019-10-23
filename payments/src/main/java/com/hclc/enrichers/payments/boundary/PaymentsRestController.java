@@ -27,7 +27,7 @@ public class PaymentsRestController {
 
     @GetMapping
     ResponseEntity<List<Payment>> findBy(@RequestParam("customerId") String customerId) throws InterruptedException {
-        sleep((long) (paymentsProperties.getSimulatedProcessingTimeMillis() * ThreadLocalRandom.current().nextDouble()));
-        return ResponseEntity.ok(paymentsRepository.findByCustomerId(customerId));
+        sleep((long) (paymentsProperties.getSimulatedProcessingTimeMillis()));
+        return ResponseEntity.ok(paymentsRepository.findByCustomerId(customerId.replace("/", "")));
     }
 }

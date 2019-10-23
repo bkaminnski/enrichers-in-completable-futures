@@ -40,9 +40,9 @@ public class ContextAssemblerReactiveSinglethreaded {
                         collectErrors(signals.getT1(), signals.getT2())));
     }
 
-    private static List<AssemblyError> collectErrors(Signal<?>... claimsSignals) {
+    private static List<AssemblyError> collectErrors(Signal<?>... signals) {
         List<AssemblyError> errors = new LinkedList<>();
-        for (Signal<?> signal : claimsSignals) {
+        for (Signal<?> signal : signals) {
             if (signal.hasError()) {
                 errors.add(new AssemblyError(Thread.currentThread().getName(),
                         signal.getThrowable().getMessage()));
